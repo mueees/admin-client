@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <buttton class="btn btn-default btn-block" ng-click="showForm = !showForm">
+            <span ng-if="!showForm">Add topic</span>
+            <span ng-if="showForm">Close dialog</span>
+        </buttton>
+    </div>
+    <div class="panel-body" ng-if="showForm">
+        <form ng-submit="onSubmit()">
+            <formly-form model="topic" fields="topicFields">
+                <button class="btn btn-primary" type="submit">Save topic</button>
+                <button class="btn btn-default" type="button" ng-click="clear()">Clear</button>
+            </formly-form>
+        </form>
+    </div>
+</div>

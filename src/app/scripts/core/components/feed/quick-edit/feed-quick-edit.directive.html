@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Edit feed {{feed.title}}
+    </div>
+    <div class="panel-body">
+        <form name="AdminFeedQuickEditForm" ng-submit="onSubmit()">
+            <formly-form model="feedClone" fields="feedFields">
+                <button ng-disabled="!AdminFeedQuickEditForm.$dirty" class="btn btn-primary" type="submit">Save
+                </button>
+                <button class="btn btn-danger" type="button" ng-click="delete(feedClone._id)">Delete</button>
+            </formly-form>
+        </form>
+    </div>
+</div>

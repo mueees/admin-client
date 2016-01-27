@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Edit topic {{topic.title}}
+    </div>
+    <div class="panel-body">
+        <form name="AdminTopicEditForm" ng-submit="onSubmit()">
+            <formly-form model="topicClone" fields="topicFields">
+                <button ng-disabled="!AdminTopicEditForm.$dirty" class="btn btn-primary" type="submit">Save topic
+                </button>
+                <button class="btn btn-danger" type="button" ng-click="delete(topicClone._id)">Delete topic</button>
+            </formly-form>
+        </form>
+    </div>
+</div>

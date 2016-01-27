@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-11">
+        <div class="row">
+            <div class="col-md-4">
+                <b>{{topic.title}}</b>
+            </div>
+            <div class="col-md-8">
+                <admin-topic-related topics="related_topics"></admin-topic-related>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b>{{topic.title_img}}</b>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <button class="btn btn-primary btn-sm" ng-click="showEdit = !showEdit">Edit</button>
+    </div>
+</div>
+
+
+<div class="row" ng-if="showEdit">
+    <div class="col-md-12">
+        <br/>
+        <admin-topic-edit topic="topic" topics="topics"></admin-topic-edit>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<h4>Feed List</h4>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group">
+            <input type="text" ng-model="search.title" class="form-control" placeholder="Title">
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="customSearch.withoutTitle"> without title
+            </label>
+            <label>
+                <input type="checkbox" ng-model="customSearch.withoutTopics"> without topics
+            </label>
+        </div>
+    </div>
+</div>
+
+<div>
+    <p>Current Page {{currentPage}} from {{pageCount}}</p>
+    <p>
+        <button class="btn btn-default btn-sm" ng-click="prev()">prev</button>
+        <button class="btn btn-default btn-sm" ng-click="next()">next</button>
+    </p>
+</div>
+
+<div class="list-group">
+    <div ng-repeat="feed in feedsForRender" class="list-group-item">
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-primary btn-sm" ng-click="showEdit = !showEdit">Edit</button>
+            </div>
+            <div class="col-md-9">
+                {{::feed.title}}
+            </div>
+            <div>
+                <admin-topic-related topics="prepareTopics(feed.topics)"></admin-topic-related>
+            </div>
+            <div class="col-md-2">
+                <a target="_blank" ui-sref="admin.rabbit.feed({id: feed._id})">more</a>
+            </div>
+        </div>
+
+        <div class="row" ng-if="showEdit">
+            <div class="col-md-12">
+                <br/>
+                <admin-feed-quick-edit topics="topics" feed="feed" feeds="feedsForRender"></admin-feed-quick-edit>
+            </div>
+        </div>
+    </div>
+</div>
