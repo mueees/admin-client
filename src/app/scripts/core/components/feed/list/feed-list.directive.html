@@ -19,6 +19,7 @@
 
 <div>
     <p>Current Page {{currentPage}} from {{pageCount}}</p>
+
     <p>
         <button class="btn btn-default btn-sm" ng-click="prev()">prev</button>
         <button class="btn btn-default btn-sm" ng-click="next()">next</button>
@@ -28,13 +29,14 @@
 <div class="list-group">
     <div ng-repeat="feed in feedsForRender" class="list-group-item">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-2">
+                <a target="_blank" href="http://rabbit.mue.in.ua/#/app/feed/{{::feed._id}}">show</a>
                 <button class="btn btn-primary btn-sm" ng-click="showEdit = !showEdit">Edit</button>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-4">
                 {{::feed.title}}
             </div>
-            <div>
+            <div class="col-md-4">
                 <admin-topic-related topics="prepareTopics(feed.topics)"></admin-topic-related>
             </div>
             <div class="col-md-2">

@@ -11,7 +11,9 @@
             },
 
             link: function ($scope) {
-                $scope.currentPage = 1;
+                $scope.search = {};
+
+                $scope.currentPage = 0;
 
                 $scope.pageCount = 0;
 
@@ -20,8 +22,8 @@
                 $scope.prev = function () {
                     $scope.currentPage -= 1;
 
-                    if (!$scope.currentPage) {
-                        $scope.currentPage = 1;
+                    if (!$scope.currentPage == -1) {
+                        $scope.currentPage = 0;
                     }
                 };
 
@@ -38,7 +40,15 @@
                 $scope.feedsForRender = [];
 
                 function updateFilteredFeeds() {
-                    filteredFeeds = _.filter($scope.plainFeeds, function (feed) {
+                    var filteredBySearch = $scope.plainFeeds;
+
+                    if ($scope.search.title) {
+                        filteredBySearch = _.filter($scope.plainFeeds, function (feed) {
+                            return _.contains(feed.title, $scope.search.title) || _.contains(feed.url, $scope.search.title);
+                        });
+                    }
+
+                    filteredFeeds = _.filter(filteredBySearch, function (feed) {
                         var showFeed = true;
 
                         if ($scope.customSearch.withoutTitle && feed.title) {
@@ -64,25 +74,25 @@
                     $scope.pageCount = filteredFeeds.length / $scope.feedsOnPage;
                 }
 
-                /*$scope.prepareTopics = function () {
-                 return [{
-                 title: 'test'
-                 }]
-                 };*/
-
                 $scope.$watch('currentPage', function () {
                     updateFeedsRender();
                 });
 
-                $scope.$watch('feeds', function () {
-                    $scope.plainFeeds = _.map($scope.feeds, function (feed) {
-                        return feed.plain();
-                    });
+                $scope.$watch('feeds', function (newValue, oldValue) {
+                    if (!$scope.plainFeeds.length && newValue && newValue != oldValue) {
+                        $scope.plainFeeds = _.map($scope.feeds, function (feed) {
+                            return feed.plain();
+                        });
 
-                    updateFilteredFeeds();
+                        updateFilteredFeeds();
+                    }
                 });
 
                 $scope.$watch('customSearch', function () {
+                    updateFilteredFeeds();
+                }, true);
+
+                $scope.$watch('search', function () {
                     updateFilteredFeeds();
                 }, true);
             }

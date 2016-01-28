@@ -15,7 +15,7 @@
 
                 $scope.delete = function (feedId) {
                     dialogs.confirm().result.then(function (btn) {
-                        adminFeedResource.deleteTopic(feedId).then(function () {
+                        adminFeedResource.deleteFeed(feedId).then(function () {
                             _.remove($scope.feeds, function (feed) {
                                 return feed._id == $scope.feed._id;
                             });
