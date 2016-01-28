@@ -22,7 +22,7 @@
                 $scope.prev = function () {
                     $scope.currentPage -= 1;
 
-                    if (!$scope.currentPage == -1) {
+                    if ($scope.currentPage < 0) {
                         $scope.currentPage = 0;
                     }
                 };
