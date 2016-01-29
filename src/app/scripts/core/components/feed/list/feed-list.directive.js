@@ -95,6 +95,12 @@
                 $scope.$watch('search', function () {
                     updateFilteredFeeds();
                 }, true);
+
+                $scope.$on('adminFeedQuickEdit:delete', function (event, data) {
+                    _.remove($scope.feedsForRender, function (feed) {
+                        return feed._id == data.feed._id;
+                    });
+                });
             }
         };
     });

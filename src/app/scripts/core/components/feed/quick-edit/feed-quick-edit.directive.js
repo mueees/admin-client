@@ -1,37 +1,20 @@
 (function () {
     'use strict';
-    angular.module('admin.core.components.feed').directive('adminFeedQuickEdit', function (dialogs,
+    angular.module('admin.core.components.feed').directive('adminFeedQuickEdit', function ($rootScope,
+                                                                                           dialogs,
                                                                                            adminFeedResource) {
         return {
             restrict: 'E',
             templateUrl: 'scripts/core/components/feed/quick-edit/feed-quick-edit.directive.html',
+
             scope: {
                 feed: '=',
-                feeds: '=',
-                topics: '='
+                topics: '=',
+                fields: '='
             },
+
             link: function ($scope) {
-                $scope.feedClone = _.cloneDeep($scope.feed);
-
-                $scope.delete = function (feedId) {
-                    dialogs.confirm().result.then(function (btn) {
-                        adminFeedResource.deleteFeed(feedId).then(function () {
-                            _.remove($scope.feeds, function (feed) {
-                                return feed._id == $scope.feed._id;
-                            });
-                        });
-                    });
-                };
-
-                $scope.onSubmit = function () {
-                    adminFeedResource.edit($scope.feed._id, $scope.feedClone).then(function (feed) {
-                        $scope.AdminFeedQuickEditForm.$dirty = false;
-
-                        _.assign($scope.feed, $scope.feedClone);
-                    });
-                };
-
-                $scope.feedFields = [
+                var defaultFieldsForEdit = [
                     {
                         key: 'title',
                         type: 'input',
@@ -111,6 +94,36 @@
                         }
                     }
                 ];
+
+                $scope.feedClone = _.cloneDeep($scope.feed);
+
+                $scope.delete = function (feedId) {
+                    dialogs.confirm().result.then(function (btn) {
+                        adminFeedResource.deleteFeed(feedId).then(function () {
+                            $rootScope.$broadcast('adminFeedQuickEdit:delete', {
+                                feed: $scope.feedClone
+                            });
+                        });
+                    });
+                };
+
+                $scope.onSubmit = function () {
+                    adminFeedResource.edit($scope.feed._id, $scope.feedClone).then(function (feed) {
+                        $scope.AdminFeedQuickEditForm.$dirty = false;
+
+                        _.assign($scope.feed, $scope.feedClone);
+                    });
+                };
+
+                if (!$scope.fields) {
+                    $scope.feedFields = defaultFieldsForEdit;
+                } else {
+                    $scope.feedFields = _.filter($scope.fields, function (fieldName) {
+                        return _.find(defaultFieldsForEdit, {
+                            key: fieldName
+                        });
+                    });
+                }
             }
         };
     });

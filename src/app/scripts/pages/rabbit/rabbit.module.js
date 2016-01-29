@@ -7,6 +7,7 @@
         'admin.viewport',
         'admin.core.resources',
         'admin.core.components.topic',
+        'admin.core.components.errors',
         'admin.core.components.feed'
     ]);
 })();

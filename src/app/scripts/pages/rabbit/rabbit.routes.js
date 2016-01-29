@@ -19,6 +19,12 @@
                 templateUrl: 'scripts/pages/rabbit/rabbit-feeds.view.html',
                 controller: 'RabbitFeedsController'
             })
+            .state('admin.rabbit.errors', {
+                url: '/errors',
+                isLoginRequired: true,
+                templateUrl: 'scripts/pages/rabbit/rabbit-errors.view.html',
+                controller: 'RabbitErrorsController'
+            })
             .state('admin.rabbit.feed', {
                 url: '/feed/:id',
                 isLoginRequired: true,

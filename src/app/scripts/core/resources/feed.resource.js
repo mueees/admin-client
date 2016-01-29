@@ -11,6 +11,14 @@
                 return Feed.all(path).getList();
             },
 
+            get: function (feedId) {
+                return Feed.one(path + '/' + feedId).get()
+            },
+
+            getInfo: function (feedId) {
+                return Feed.one('admin/' + path + '/' + feedId + '/info').get();
+            },
+
             edit: function (feedId, data) {
                 return Feed.all('admin/' + path + '/' + feedId).post(data);
             },

@@ -3,7 +3,7 @@
 
     angular.module('admin').provider('adminConfig', function () {
         var config = {
-            environment: 'production'
+            /*environment: 'production'*/
         };
 
         var developmentOrigin = 'http://localhost:10002',

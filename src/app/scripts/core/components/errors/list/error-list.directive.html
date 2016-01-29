@@ -1,0 +1,32 @@
+<h4>Error List</h4>
+
+<div>
+    <p>Current Page {{currentPage}} from {{pageCount}}</p>
+
+    <p>
+        <button class="btn btn-default btn-sm" ng-click="prev()">prev</button>
+        <button class="btn btn-default btn-sm" ng-click="next()">next</button>
+    </p>
+</div>
+
+<div class="list-group">
+    <div ng-repeat="error in errorsForRender" class="list-group-item">
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-danger btn-sm" ng-click="deleteError(error._id)">Del</button>
+                <button class="btn btn-primary" ng-click="showFix = !showFix">Fix</button>
+            </div>
+            <div class="col-md-4">
+                {{::error.errorCode}}
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+
+        <div class="row" ng-if="showFix">
+            <div class="col-md-12">
+                <admin-error-fix error="error"></admin-error-fix>
+            </div>
+        </div>
+    </div>
+</div>
