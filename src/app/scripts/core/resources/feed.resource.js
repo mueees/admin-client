@@ -12,7 +12,7 @@
             },
 
             get: function (feedId) {
-                return Feed.one(path + '/' + feedId).get()
+                return Feed.one(path + '/' + feedId).get();
             },
 
             getInfo: function (feedId) {
