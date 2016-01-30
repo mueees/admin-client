@@ -118,10 +118,8 @@
                 if (!$scope.fields) {
                     $scope.feedFields = defaultFieldsForEdit;
                 } else {
-                    $scope.feedFields = _.filter($scope.fields, function (fieldName) {
-                        return _.find(defaultFieldsForEdit, {
-                            key: fieldName
-                        });
+                    $scope.feedFields = _.filter(defaultFieldsForEdit, function (defaultField) {
+                        return _.contains($scope.fields, defaultField.key);
                     });
                 }
             }

@@ -7,6 +7,12 @@
         <button class="btn btn-default btn-sm" ng-click="prev()">prev</button>
         <button class="btn btn-default btn-sm" ng-click="next()">next</button>
     </p>
+
+    <formly-form model="filter" fields="filterFields"></formly-form>
+
+    <pre>
+        {{filter | json}}
+    </pre>
 </div>
 
 <div class="list-group">
@@ -20,6 +26,7 @@
                 {{::error.errorCode}}
             </div>
             <div class="col-md-6">
+                {{::error.create_date}}
             </div>
         </div>
 

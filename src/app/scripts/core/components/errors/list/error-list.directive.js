@@ -10,7 +10,9 @@
             },
 
             link: function ($scope) {
-                var uniqueErrors = [];
+                var plainErrors = [];
+
+                var filteredErrors = [];
 
                 $scope.currentPage = 0;
 
@@ -44,13 +46,13 @@
                     if (newValue && newValue != oldValue) {
                         $scope.errors = $scope.errors.reverse();
 
-                        var plainErrors = _.map($scope.errors, function (error) {
+                        plainErrors = _.map($scope.errors, function (error) {
                             return error.plain();
                         });
 
-                        uniqueErrors = _prepareUniqueErrors(plainErrors);
+                        plainErrors = _prepareUniqueErrors(plainErrors);
 
-                        updateErrorsRender();
+                        updateFilteredErrors();
                     }
                 });
 
@@ -58,13 +60,59 @@
                     updateErrorsRender();
                 });
 
+                $scope.$watch('filter', function (newValue, oldValue) {
+                    updateFilteredErrors();
+                }, true);
+
+                $scope.filterFields = [
+                    {
+                        key: 'errorCodes',
+                        type: 'multiCheckbox',
+                        templateOptions: {
+                            label: 'Topics',
+                            options: [
+                                {
+                                    _id: 1,
+                                    title: 'Feed error. Cannot load page due to unexpected error'
+                                },
+                                {
+                                    _id: 2,
+                                    title: 'Feed error. Cannot load page due to error status code'
+                                },
+                                {
+                                    _id: 3,
+                                    title: 'Feed error. Rss xml exist but system cannot parse it'
+                                }
+                            ],
+                            valueProp: '_id',
+                            labelProp: 'title'
+                        }
+                    }
+                ];
+
+                $scope.filter = {};
+
                 function updateErrorsRender() {
                     var start = $scope.currentPage * $scope.errorsOnPage,
                         end = start + $scope.errorsOnPage;
 
-                    $scope.errorsForRender = uniqueErrors.slice(start, end);
+                    $scope.errorsForRender = filteredErrors.slice(start, end);
 
-                    $scope.pageCount = uniqueErrors.length / $scope.errorsOnPage;
+                    $scope.pageCount = filteredErrors.length / $scope.errorsOnPage;
+                }
+
+                function updateFilteredErrors() {
+                    filteredErrors = _.filter(plainErrors, function (error) {
+                        if ($scope.filter.errorCodes && $scope.filter.errorCodes.length) {
+                            if ($scope.filter.errorCodes.indexOf(error.errorCode) != -1) {
+                                return error;
+                            }
+                        } else {
+                            return error;
+                        }
+                    });
+
+                    updateErrorsRender();
                 }
 
                 function _prepareUniqueErrors(errors) {

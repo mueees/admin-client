@@ -2,6 +2,7 @@
     'use strict';
     angular.module('admin.core.components.errors').directive('adminErrorFixFeed', function ($q,
                                                                                             adminFeedResource,
+                                                                                            adminErrorResource,
                                                                                             adminTopicResource) {
         return {
             restrict: 'E',
@@ -12,6 +13,17 @@
 
             link: function ($scope) {
                 $scope.feed = null;
+
+                $scope.fields = ['url'];
+
+                // change errorCode to 3 - XML Exist but System cannot parse XML
+                $scope.cannotParseXml = function () {
+                    adminErrorResource.edit($scope.error._id, {
+                        errorCode: 3
+                    }).then(function () {
+                        $scope.error.errorCode = 3;
+                    });
+                };
 
                 $q.all({
                     feed: adminFeedResource.get($scope.error.data.feedId),

@@ -1,7 +1,16 @@
-<h5>Feed info</h5>
+<h4>Feed info</h4>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group">
+            <button class="btn" ng-click="cannotParseXml()">System cannot parse xml</button>
+            <a target="_blank" href="{{feed.url}}">Open xml</a>
+        </div>
+    </div>
+</div>
 
 <pre>
     {{feedInfo | json}}
 </pre>
 
-<admin-feed-quick-edit ng-if="feed" feed="feed" topics="topics"></admin-feed-quick-edit>
+<admin-feed-quick-edit ng-if="feed" feed="feed" fields="fields" topics="topics"></admin-feed-quick-edit>

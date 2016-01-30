@@ -19,9 +19,9 @@
                 return Error.all('admin/' + path).getList();
             },
 
-            /*edit: function (topicId, data) {
-             return Topic.all('admin/' + path + '/' + topicId).post(data);
-             },*/
+            edit: function (errorId, data) {
+                return Error.all('admin/' + path + '/' + errorId).post(data);
+            },
 
             deleteError: function (errorId) {
                 return Error.all('admin/' + path + '/' + errorId).remove();
