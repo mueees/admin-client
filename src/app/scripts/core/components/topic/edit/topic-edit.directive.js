@@ -48,6 +48,13 @@
                         }
                     },
                     {
+                        key: 'main',
+                        type: 'checkbox',
+                        templateOptions: {
+                            label: 'Show as main topic'
+                        }
+                    },
+                    {
                         key: 'related_topics',
                         type: 'multiCheckbox',
                         templateOptions: {

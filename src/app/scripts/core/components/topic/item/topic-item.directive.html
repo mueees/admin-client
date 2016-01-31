@@ -2,7 +2,12 @@
     <div class="col-md-11">
         <div class="row">
             <div class="col-md-4">
-                <b>{{topic.title}}</b>
+                <div ng-if="topic.main">
+                    <b>{{topic.title}}</b>
+                </div>
+                <div ng-if="!topic.main">
+                    {{topic.title}}
+                </div>
             </div>
             <div class="col-md-8">
                 <admin-topic-related topics="related_topics"></admin-topic-related>

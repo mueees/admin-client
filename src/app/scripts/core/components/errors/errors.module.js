@@ -6,6 +6,7 @@
         'formlyBootstrap',
         'dialogs.main',
 
-        'admin.core.components.feed'
+        'admin.core.components.feed',
+        'relativeDate'
     ]);
 })();

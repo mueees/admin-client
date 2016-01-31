@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('admin.core.components.errors').directive('adminErrorList', function (adminErrorResource) {
+    angular.module('admin.core.components.errors').directive('adminErrorList', function (adminErrorResource, relativeDate) {
         return {
             restrict: 'E',
             templateUrl: 'scripts/core/components/errors/list/error-list.directive.html',
@@ -37,6 +37,12 @@
                         _.remove($scope.errorsForRender, {
                             _id: errorId
                         });
+                    });
+                };
+
+                $scope.getRelativeCreatingDate = function (date) {
+                    relativeDate.set(new Date($scope.rbConfig.public_date), function (date) {
+                        $scope.public_date = date;
                     });
                 };
 
